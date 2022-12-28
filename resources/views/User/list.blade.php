@@ -20,16 +20,13 @@
                         <a class="nav-link" href="#">My App</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">USER</a>
+                        <a class="nav-link" href="role">ROLE</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">ROLE</a>
+                        <a class="nav-link" href="permission">PERMISSION</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">PERMISSION</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="">MODULE</a>
+                        <a class="nav-link" href="module">MODULE</a>
                     </li>
                 </ul>
             </div>
@@ -61,10 +58,12 @@
                         @endforeach
                     </tbody>
                 </table>
-                <br>
+                {{-- <nav>
+                    {{ $users->links() }}
+                </nav> --}}
                 <style>
                     .w-5 {
-                        display: none;
+                        display: inline;
                     }
                 </style>
             </div>

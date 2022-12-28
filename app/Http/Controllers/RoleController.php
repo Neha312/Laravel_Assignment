@@ -2,55 +2,99 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Permission;
+
 use App\Models\Role;
-use App\Models\User;
+use App\Models\Permission;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
-    public function list()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
         $role = Role::all();
         $permission = Permission::all();
-        return view('Role/list', ['roles' => $role], ['permissions' => $permission]);
+        return view('Role/Index', ['roles' => $role], ['permissions' => $permission]);
     }
-    public function add()
-    {
-        $role = new Role();
-        $role->rollname = 'HR';
-        $role->save();
 
-        // Role::findOrFail($id)->insert($request->only('Rollname'));
-        // dd('sone')
-        // return redirect(route('index'))->with('status', 'Data Updated Successfully !!');
-    }
-    public function insert()
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create(Request $request)
     {
-        $role1 = new Role();
-        $role1->rollname = 'Jinal';
-        $role1->save();
+        $this->validate($request, ['rollname' => 'required|string']);
 
-        //$role = Role::find();
-        $perid = [1, 2];
-        $role1->permissions()->attach($perid);
+        $role = Role::create($request->only('rollname'));
+        // $perid = [1, 2];
+        // $role->permissions()->attach($perid);
+        $permissionid = Permission::find($request->permission);
+        $role->permissions()->attach($permissionid);
+        return redirect('role/index')->with('status', 'Inserted Succesfully');
     }
-    public function show($id)
-    {
-        $role2 = Role::with('users')->findOrFail($id);
-        dd($role2->toArray());
-    }
-    public function update($id)
-    {
-        $role3 = Role::find($id);
-        $role3->Rollname = "Employee";
-        $role3->save();
 
-        return ($role3);
-    }
-    public function delete($id)
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
-        $role4 = Role::findOrFail($id)->delete();
-        return ($role4);
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Role1  $role1
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Role $role1)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Role1  $role1
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $role = Role::findOrFail($id);
+        return view('Role/edit', ['roles' => $role]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Role1  $role1
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, ['rollname' => 'required|string']);
+        $role = Role::findOrFail($id)->update($request->only('rollname'));
+        return redirect('role/index')->with('status', 'Updated Succesfully');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Role  $role
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        Role::destroy($id);
+        return redirect('role/index')->with('status', 'Deleted Succesfully');
     }
 }

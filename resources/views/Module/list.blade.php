@@ -20,13 +20,13 @@
                         <a class="nav-link" href="#">My App</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">USER</a>
+                        <a class="nav-link" href="user">USER</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">ROLE</a>
+                        <a class="nav-link" href="role">ROLE</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">PERMISSION</a>
+                        <a class="nav-link" href="permission">PERMISSION</a>
                     </li>
                 </ul>
             </div>
@@ -53,8 +53,10 @@
                                         <th>{{ $module->id }}</th>
                                         <td>{{ $module->modulename }}</td>
                                         <td>
-                                            <a href="{{ url('/editrole') }}" class="btn btn-info btn-sm">EDIT</a>
-                                            <a href="{{ url('/deleterole') }}" class="btn btn-danger btn-sm">DELETE</a>
+                                            <a href="{{ url('module/edite', $module->id) }}"
+                                                class="btn btn-info btn-sm">EDIT</a>
+                                            <a href="{{ url('module/delete', $module->id) }}"
+                                                class="btn btn-danger btn-sm">DELETE</a>
                                         </td>
                                     </tr>
                                 @endforeach

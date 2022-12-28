@@ -2,53 +2,94 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
-use App\Models\User;
 use App\Models\Module;
-use App\Models\Permission;
 use Illuminate\Http\Request;
 
 class ModuleController extends Controller
 {
-
-    public function list()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
 
+        $module = Module::Paginate(5);
         $module = Module::all();
-        // dd($roles);
-        return view('Module/list', ['modules' => $module]);
+        return view('Module/Index', ['modules' => $module]);
     }
-    public function add()
-    {
-        $module = new Module();
-        $module->modulename = 'Employee Assesment';
-        $module->save();
 
-        // $role = Role::find(1);
-        $perid = [8];
-        $module->permissions()->attach($perid);
-    }
-    public function show($id)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create(Request $request)
     {
-        $module1 = Module::with('permissions')->findOrFail($id);
-        dd($module1->toArray());
+
+        $this->validate($request, ['modulename' => 'required|string']);
+
+        $module = Module::create($request->only('modulename'));
+        return redirect('module/index')->with('status', 'Inserted Succesfully');
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Module1  $module1
+     * @return \Illuminate\Http\Response
+     */
+    public function show()
+    {
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Module1  $module1
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $module = Module::findOrFail($id);
+        return view('Module/edit', ['modules' => $module]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Module1  $module1
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, $id)
     {
-        // $module2 = Module::find($id);
-        // $module2->modulename = "absh";
-        // $module2->save();
-
-        // return ($module2);
-
-
-        Module::findOrFail($id)->update($request->only('name'));
-        // dd('sone')
-        return redirect(route('index'))->with('status', 'Data Updated Successfully !!');
+        $this->validate($request, ['modulename' => 'required|string']);
+        $module = Module::findOrFail($id)->update($request->only('modulename'));
+        return redirect('module/index')->with('status', 'Updated Succesfully');
     }
-    public function delete($id)
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Module1  $module1
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
     {
-        $module3 = Module::findOrFail($id)->delete();
-        return ($module3);
+        Module::destroy($id);
+        return redirect('module/index')->with('status', 'Deleted Succesfully');
     }
 }

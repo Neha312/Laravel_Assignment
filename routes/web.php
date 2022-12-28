@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\PermissionController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,41 +22,35 @@ use App\Http\Controllers\PermissionController;
 //     return view('welcome');
 // });
 
-Route::controller(ModuleController::class)->prefix('module')->group(function () {
-    Route::get('/', 'list');
-    Route::get('add', 'add');
-    Route::get('show/{id}', 'show');
-    Route::get('edit/{id}', 'update');
-    Route::get('delete/{id}',  'delete');
-});
-
-
-Route::controller(PermissionController::class)->prefix('permission')->group(function () {
-    Route::get('/', 'list');
-    Route::get('add', 'add');
-    Route::get('show/{id}', 'show');
-    Route::get('edit/{id}', 'update');
-    Route::get('delete/{id}',  'delete');
+Route::controller(UserController::class)->prefix('user')->group(function () {
+    Route::get('index',  'index');
+    Route::post('add', 'create');
+    Route::get('edit/{id}', 'edit');
+    Route::put('update/{id}', 'update');
+    Route::delete('delete/{id}', 'destroy');
 });
 
 Route::controller(RoleController::class)->prefix('role')->group(function () {
-    Route::get('/', 'list');
-    Route::get('addRole', 'add')->name('add.role');
-    Route::post('insert', 'insert')->name('insert.permission');
-    Route::get('show/{id}', 'show');
-    Route::get('edit/{id}', 'update');
-    Route::get('delete/{id}', 'delete');
+    Route::get('index',  'index');
+    Route::post('add', 'create');
+    Route::get('edit/{id}', 'edit');
+    Route::put('update/{id}', 'update');
+    Route::delete('delete/{id}', 'destroy');
 });
-
-Route::controller(UserController::class)->prefix('user')->group(function () {
-    Route::get('/',  'list');
-    Route::get('add', 'add');
-    Route::get('show/{id}', 'show');
-    Route::get('edit/{id}', 'update');
-    Route::get('delete/{id}', 'delete');
+Route::controller(PermissionController::class)->prefix('permission')->group(function () {
+    Route::get('index',  'index');
+    Route::post('add', 'create');
+    Route::get('edit/{id}', 'edit');
+    Route::put('update/{id}', 'update');
+    Route::delete('delete/{id}', 'destroy');
 });
-
-
+Route::controller(ModuleController::class)->prefix('module')->group(function () {
+    Route::get('index',  'index');
+    Route::post('add', 'create');
+    Route::get('edit/{id}', 'edit');
+    Route::put('update/{id}', 'update');
+    Route::delete('delete/{id}', 'destroy');
+});
 
 
 // Route::get('/index1', [RoleController::class, 'index1']);

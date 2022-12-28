@@ -23,13 +23,13 @@
                         <a class="nav-link" href="">USER</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">ROLE</a>
+                        <a class="nav-link" href="/role/index">ROLE</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">PERMISSION</a>
+                        <a class="nav-link" href="/permission/index">PERMISSION</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">MODULE</a>
+                        <a class="nav-link" href="/module/index">MODULE</a>
                     </li>
                 </ul>
             </div>
@@ -38,10 +38,10 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-sm-6">
-                <form action="" method="POST">
+                <form action="/user/add" method="POST">
                     @csrf
-                    @method('PUT')
                     <div class="mb-3">
+
                         <label for="name" class="form-label">User Name</label>
                         <input type="text" class="form-control" id="username" name="username">
                         <span class="text-danger">
@@ -51,7 +51,7 @@
                         </span>
                     </div>
                     <div class="mb-3">
-                        <select class="form-control" name="" id="rollname">
+                        <select class="form-control" name="role" id="rollname">
                             <option hidden>Choose Role Name</option>
                             @foreach ($roles as $role)
                                 <option value="{{ $role->id }}">{{ $role->rollname }}</option>
@@ -60,6 +60,12 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
+                <br>
+                @if (session()->has('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
             </div>
             <div class="col-sm-6">
                 <br><br>
@@ -72,13 +78,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($users as $u)
+                        @foreach ($users as $user)
                             <tr>
-                                <th>{{ $u->id }}</th>
-                                <td>{{ $u->username }}</td>
+                                <th>{{ $user->id }}</th>
+                                <td>{{ $user->username }}</td>
                                 <td>
-                                    <a href="{{ url('/edituser') }}" class="btn btn-info btn-sm">EDIT</a>
-                                    <a href="{{ url('/deleteuser') }}" class="btn btn-danger btn-sm">DELETE</a>
+                                    <a href="{{ url('user/edit', $user->id) }}" class="btn btn-info btn-sm">EDIT</a>
+                                    {{-- <a href="{{ url('user/delete', $user->id) }}"
+                                        class="btn btn-danger btn-sm">DELETE</a> --}}
+                                    <form method="POST" action="{{ url('user/delete', $user->id) }}">
+                                        @csrf
+                                        <input name="_method" type="hidden" value="DELETE">
+                                        <button type="submit" class="btn btn-xs btn-danger btn-flat show_confirm"
+                                            data-toggle="tooltip" title='Delete'>Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

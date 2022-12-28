@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Module extends Model
 {
     use HasFactory;
+    protected $fillable = ['id', 'modulename'];
     public function permissions()
     {
         return $this->belongsToMany(Permission::class);
