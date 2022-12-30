@@ -20,13 +20,16 @@
                         <a class="nav-link" href="#">My App</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="role">ROLE</a>
+                        <a class="nav-link" href="/user/index">USER</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="permission">PERMISSION</a>
+                        <a class="nav-link" href="/role/index">ROLE</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="module">MODULE</a>
+                        <a class="nav-link" href="/permission/index">PERMISSION</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/module/index">MODULE</a>
                     </li>
                 </ul>
             </div>

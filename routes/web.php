@@ -18,9 +18,14 @@ use App\Http\Controllers\PermissionController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('home');
+});
+
+
+Route::get('/contact', function () {
+    return view('new/pages/contact');
+});
 
 Route::controller(UserController::class)->prefix('user')->group(function () {
     Route::get('index',  'index');

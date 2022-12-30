@@ -18,8 +18,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::Paginate(5);
-        $user = User::all();
+        $user = User::simplePaginate(5);
+        // $user = User::all();
         $role = Role::all();
         return view('User/Index', ['users' => $user], ['roles' => $role]);
     }

@@ -16,7 +16,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $role = Role::all();
+        $role = Role::simplePaginate(5);
         $permission = Permission::all();
         return view('Role/Index', ['roles' => $role], ['permissions' => $permission]);
     }

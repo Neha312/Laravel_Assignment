@@ -15,8 +15,8 @@ class ModuleController extends Controller
     public function index()
     {
 
-        $module = Module::Paginate(5);
-        $module = Module::all();
+        $module = Module::simplePaginate(5);
+        // $module = Module::all();
         return view('Module/Index', ['modules' => $module]);
     }
 
